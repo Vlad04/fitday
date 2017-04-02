@@ -37,7 +37,6 @@
         <activity android:name=".ContactoActivity" />
         <activity android:name=".StoreActivity" />
         <activity android:name=".SuppliesActivity" />
-        <activity android:name=".Fragment_Drawable"></activity>
     </application>
 
 </manifest>

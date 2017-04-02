@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;                  //Este es un objeto de tipo FIrebase
     private ProgressBar progressBar;            //El circulo girando que aparece en la parte inferior de la pantalla.
     private Button btnSignup, btnLogin, btnReset;   //Botones para iniciar las actividades SignUp, ResetPassword y
-                                                     //a la actividad principal una vez ya haber ingresado.
+    //a la actividad principal una vez ya haber ingresado.
 
 
 
