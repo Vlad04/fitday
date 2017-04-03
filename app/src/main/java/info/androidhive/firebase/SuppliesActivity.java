@@ -22,8 +22,9 @@ import java.util.ArrayList;
 
 public class SuppliesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    Button buttonAgregarC;
-    Button buttonEliminarC;
+    //declarar variables
+    private Button buttonAgregarC;
+    private Button buttonEliminarC;
     Button buttonActualizarC;
     EditText editTextCategoria;
     ArrayList<String> categorias;
@@ -42,20 +43,19 @@ public class SuppliesActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supplies);
 
+        //iniciar variables
         buttonAgregarC = (Button)findViewById(R.id.buttonAgregarC);
         buttonActualizarC = (Button)findViewById(R.id.buttonActualizar);
         buttonEliminarC = (Button)findViewById(R.id.buttonEliminar);
         editTextCategoria = (EditText)findViewById(R.id.editTextCategoria);
         listCatgorias = (ListView)findViewById(R.id.listCategorias);
-
         categorias = new ArrayList<String>();
-
-        //listCatgorias.setAdapter(null);
 
         categoriasAdapter = new CategoriaAdapter(categorias,this);
         listCatgorias.setAdapter(categoriasAdapter);
         listCatgorias.setOnItemClickListener(this);
 
+        //no se muy bien que hace
         categoriasAdapter.notifyDataSetChanged();
 
         activity = this;
@@ -69,35 +69,42 @@ public class SuppliesActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
 
+                //borrar items de la lista
+                if(categorias.size() > 0) {
+                    for(int i = categorias.size() - 1; i >= 0; i--) {
+                        categorias.remove(i);
+                    }
+                }
+
+                //cargar items a la lista desde la BD
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     categorias.add(child.getKey());
                 }
 
-               // categoriasAdapter = new CategoriaAdapter(categorias,activity);
-               // listCatgorias.setAdapter(categoriasAdapter);
-
+                //Agregar datos a la lista y BD
                 buttonAgregarC.setOnClickListener(new View.OnClickListener(){
 
                     @Override
                     public void onClick(View v) {
-                        String key = editTextCategoria.getText().toString();
-                        DatabaseReference newRef = rootRef.child(key).push();
-                        newRef.setValue("");
+                        String key = editTextCategoria.getText().toString().trim();
 
-                        categorias.add(key);
-                        activity.finish();
-                        startActivity(activity.getIntent());
-                        // categoriasAdapter.notifyDataSetChanged();
+                            if(!categorias.contains(key)){
+                                DatabaseReference newRef = rootRef.child(key).push();
+                                newRef.setValue("");
+                                categorias.add(key);
+                            }else {
+                                Toast.makeText(getApplication(),"Categoria existente : "+key +"\n ingrese otro nombre",Toast.LENGTH_SHORT).show();
 
-                         // categoriasAdapter = new CategoriaAdapter(categorias,activity);
-                         // listCatgorias.setAdapter(categoriasAdapter);
+                            }
+
                     }
                 });
 
+                //Eliminar datos de la lista y la BD
                 buttonEliminarC.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String key = editTextCategoria.getText().toString();
+                        String key = editTextCategoria.getText().toString().trim();
                         DatabaseReference childRef = rootRef.child(key);
                         childRef.removeValue();
 
@@ -105,22 +112,18 @@ public class SuppliesActivity extends AppCompatActivity implements AdapterView.O
                             if(categorias.get(i).toString().equals(key)) {
                                 categorias.remove(i);
                                 break;
+                            }else{
+                                Toast.makeText(getApplication(),"Categoria no existente : "+key +"\n ingrese otro nombre",Toast.LENGTH_SHORT).show();
                             }
                         }
-                        activity.finish();
-                        startActivity(activity.getIntent());
-                        //categoriasAdapter.notifyDataSetChanged();
-
-                        // categoriasAdapter = new CategoriaAdapter(categorias,activity);
-                        //listCatgorias.setAdapter(categoriasAdapter);
-
                     }
                 });
 
+                //actualizar datos
                 buttonActualizarC.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String key = editTextCategoria.getText().toString();
+                        String key = editTextCategoria.getText().toString().trim();
                         DatabaseReference childRef = rootRef.child(key);
                         childRef.removeValue();
 
@@ -130,20 +133,10 @@ public class SuppliesActivity extends AppCompatActivity implements AdapterView.O
                                 break;
                             }
                         }
-                        activity.finish();
-                        startActivity(activity.getIntent());
-                        //categoriasAdapter.notifyDataSetChanged();
-
-                        // categoriasAdapter = new CategoriaAdapter(categorias,activity);
-                        //listCatgorias.setAdapter(categoriasAdapter);
 
                     }
                 });
-               // listCatgorias.setAdapter(null);
-                 //categoriasAdapter = new CategoriaAdapter(categorias,activity);
-                 //listCatgorias.setAdapter(categoriasAdapter);
-                //categoriasAdapter.notifyDataSetChanged();
-
+                categoriasAdapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -151,13 +144,13 @@ public class SuppliesActivity extends AppCompatActivity implements AdapterView.O
 
 
         });
-        //categoriasAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
         Toast.makeText(this, "dato enviado: "+categorias.get(i), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(SuppliesActivity.this,StoreActivity.class);
+        //enviar el el nombre de la categoria seleccionada en la lista
         intent.putExtra("Test", categorias.get(i).toString());
         startActivity(intent);
 
