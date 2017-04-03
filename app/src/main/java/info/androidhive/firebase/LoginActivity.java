@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();  //Aqui inicia la instancia de firebase con el objeto
+        auth = FirebaseAuth.getInstance();  //Aqui  inicia la instancia de firebase con el objeto
 
         // set the view now
         setContentView(R.layout.activity_login);

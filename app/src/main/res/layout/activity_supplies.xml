@@ -13,10 +13,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background2"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/background2">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:text="Almacén"
@@ -28,34 +28,52 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true" />
 
-        <Button
-            android:text="Refrescos"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonRefrescos"
-            android:layout_below="@+id/buttonLacteos"
-            android:layout_alignStart="@+id/buttonLacteos"
-            android:layout_marginTop="17dp"
-            android:layout_alignLeft="@+id/buttonLacteos" />
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextCategoria"
+            android:layout_above="@+id/buttonAgregarC"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listCategorias"
+            android:layout_above="@+id/editTextCategoria"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView6" />
 
         <Button
-            android:text="Cervezas"
+            android:text="Modificar categoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonCervezas"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/buttonRefrescos"
-            android:layout_alignLeft="@+id/buttonRefrescos" />
+            android:id="@+id/buttonActualizar"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
-            android:text="Lacteos"
+            android:text="Eliminar categoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
-            android:id="@+id/buttonLacteos"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:id="@+id/buttonEliminar"
+            android:layout_above="@+id/buttonActualizar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="Agregar categoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAgregarC"
+            android:layout_above="@+id/buttonEliminar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
 
 </RelativeLayout>
