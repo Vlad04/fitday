@@ -32,7 +32,7 @@ public class SecondActivity extends AppCompatActivity {
       btnSales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SecondActivity.this,ThirdActivity.class);
+                Intent intent = new Intent(SecondActivity.this,Sales.class);
                 startActivity(intent);
             }
         });
