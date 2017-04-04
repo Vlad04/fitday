@@ -115,9 +115,9 @@ public class Sales extends AppCompatActivity {
                                 String cantidad_store="Ventas del dia:";
 
                                 int our_value=Integer.parseInt(value);
-                                DatabaseReference childRef = reference.child(key);
+                                DatabaseReference childRef = reference.child(key).child("CantidadStore");
 
-                                int auxBD = Integer.parseInt(dataSnapshot.child(key).getValue().toString());
+                                int auxBD = Integer.parseInt(dataSnapshot.child(key).child("CantidadStore").getValue().toString());
 
                                 if(auxBD>0){
                                     int auxOper = auxBD - our_value;
@@ -126,7 +126,9 @@ public class Sales extends AppCompatActivity {
 
 
                                     //DatabaseReference newRef = rootRef.child(cantidad_store).push();
-                                    DatabaseReference newRef = rootRef.child(key).child(key).push();
+                                    DatabaseReference newRef=rootRef.child(key).push();
+                                    newRef = reference.child(key).child(cantidad_store).push();
+
                                     newRef.setValue(our_value);
                                        // categorias.add(cantidad_store);
 
