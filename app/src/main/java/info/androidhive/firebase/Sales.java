@@ -41,6 +41,7 @@ public class Sales extends AppCompatActivity {
     TextView textViewLacteosLecheValor2;
     TextView textViewLacteos3;
     TextView textViewLacteosLecheValor3;
+    EditText editText_category;
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -58,6 +59,7 @@ public class Sales extends AppCompatActivity {
         textViewLacteosLecheValor2 = (TextView)findViewById(R.id.textViewLecheValor2);
         textViewLacteos3 = (TextView)findViewById(R.id.textView10);
         textViewLacteosLecheValor3 = (TextView)findViewById(R.id.textView11);
+        editText_category=(EditText)findViewById(R.id.category_edit);
         textViewsName = new ArrayList<TextView>();
         textViewsName.add(textViewLacteos1);
         textViewsName.add(textViewLacteos2);
@@ -72,7 +74,7 @@ public class Sales extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Sales.this, LoginActivity.class);
+                Intent intent = new Intent(Sales.this, SecondActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,8 +87,8 @@ public class Sales extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //if (i.getStringExtra("Test").equals("Lacteos")) {
-            reference = database.getReference("Lacteos");
-
+            reference = database.getReference(editText_category.getText().toString());
+            //reference = rootRef;
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -110,26 +112,32 @@ public class Sales extends AppCompatActivity {
                         //DEL KEY QUE ESTAMOS LLAMANDO, Y ESO RESTARLE "VALUE" PARA QUE SE ACTUALIE EL STORE
                         @Override
                         public void onClick(View v) {
-                            String key = editTextArticulo.getText().toString().trim();
+                            String key = editText_category.getText().toString().trim();
                             String value = editTextValor.getText().toString();
+                            String articulo=editTextArticulo.getText().toString().trim();
                             String cantidad_store = "Ventas del dia:";
 
                             int our_value = Integer.parseInt(value);
-                            DatabaseReference childRef = reference.child(key).child("CantidadStore");
+                            DatabaseReference childRef = reference.child(key).child(articulo).child(cantidad_store);
+                            DatabaseReference childRef2 = reference.child(key).child(articulo).child("CantidadStore");
 
-                            int auxBD = Integer.parseInt(dataSnapshot.child(key).child("CantidadStore").getValue().toString());
+                            int auxBD = Integer.parseInt(dataSnapshot.child(key).child(articulo).child("CantidadStore").getValue().toString());
+                            //int auxBD2 = Integer.parseInt(dataSnapshot.child(key).child(articulo).child(cantidad_store).getValue().toString());
 
                             if (auxBD > 0 && our_value<auxBD) {
                                 int auxOper = auxBD - our_value;
-                                childRef.setValue(auxOper);
+                                int auxVentas = our_value;
+                                childRef.setValue(auxVentas);
+                                childRef2.setValue(auxOper);
                                 Toast.makeText(getApplicationContext(), "VENDIDO", Toast.LENGTH_SHORT).show();
 
 
                                 //DatabaseReference newRef = rootRef.child(cantidad_store).push();
-                                DatabaseReference newRef = rootRef.child(key).push();
+                                /*DatabaseReference newRef = rootRef.child(key).push();
                                 newRef = reference.child(key).child(cantidad_store).push();
 
                                 newRef.setValue(our_value);
+                                */
 
 
                             } else {

@@ -48,28 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/article"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:hint="Enter the product"
-                android:inputType="none"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white"
-                android:layout_weight="1" />
-
 
         </android.support.design.widget.TextInputLayout>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/quantity"
-            android:hint="Enter the quantity" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,6 +61,30 @@
             android:textSize="14dp" />
 
         <!-- Login Button -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter category"
+            android:id="@+id/category_edit" />
+        <EditText
+            android:id="@+id/article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="Enter the product"
+            android:inputType="none"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:layout_weight="0.03" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/quantity"
+            android:hint="Enter the quantity" />
 
         <Button
             android:id="@+id/sales"
