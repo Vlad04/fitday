@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.CharConversionException;
 import java.util.ArrayList;
 
 public class Sales extends AppCompatActivity {
@@ -109,36 +110,34 @@ public class Sales extends AppCompatActivity {
                         //DEL KEY QUE ESTAMOS LLAMANDO, Y ESO RESTARLE "VALUE" PARA QUE SE ACTUALIE EL STORE
                         @Override
                         public void onClick(View v) {
+                            String key = editTextArticulo.getText().toString().trim();
+                            String value = editTextValor.getText().toString();
+                            String cantidad_store = "Ventas del dia:";
 
-                                String key = editTextArticulo.getText().toString().trim();
-                                String value = editTextValor.getText().toString();
-                                String cantidad_store="Ventas del dia:";
+                            int our_value = Integer.parseInt(value);
+                            DatabaseReference childRef = reference.child(key).child("CantidadStore");
 
-                                int our_value=Integer.parseInt(value);
-                                DatabaseReference childRef = reference.child(key).child("CantidadStore");
+                            int auxBD = Integer.parseInt(dataSnapshot.child(key).child("CantidadStore").getValue().toString());
 
-                                int auxBD = Integer.parseInt(dataSnapshot.child(key).child("CantidadStore").getValue().toString());
-
-                                if(auxBD>0){
-                                    int auxOper = auxBD - our_value;
-                                    childRef.setValue(auxOper);
-                                    Toast.makeText(getApplicationContext(),"VENDIDO",Toast.LENGTH_SHORT).show();
-
-
-                                    //DatabaseReference newRef = rootRef.child(cantidad_store).push();
-                                    DatabaseReference newRef=rootRef.child(key).push();
-                                    newRef = reference.child(key).child(cantidad_store).push();
-
-                                    newRef.setValue(our_value);
+                            if (auxBD > 0 && our_value<auxBD) {
+                                int auxOper = auxBD - our_value;
+                                childRef.setValue(auxOper);
+                                Toast.makeText(getApplicationContext(), "VENDIDO", Toast.LENGTH_SHORT).show();
 
 
-                                }
-                                else{
-                                    Toast.makeText(getApplicationContext(),"No hay suficientes productos",Toast.LENGTH_SHORT).show();
-                                }
+                                //DatabaseReference newRef = rootRef.child(cantidad_store).push();
+                                DatabaseReference newRef = rootRef.child(key).push();
+                                newRef = reference.child(key).child(cantidad_store).push();
+
+                                newRef.setValue(our_value);
 
 
+                            } else {
+                                Toast.makeText(getApplicationContext(), "No hay suficientes productos", Toast.LENGTH_SHORT).show();
+                            }
                         }
+
+
 
                         });
 
