@@ -1,0 +1,43 @@
+From c03643eecbd010fae9c009dc8a5770ab496224b0 Mon Sep 17 00:00:00 2001
+From: Vladimir Rodriguez <vladiir.rod96@gmail.com>
+Date: Tue, 4 Apr 2017 09:59:17 -0500
+Subject: [PATCH 2/2] sales modified
+
+part2
+---
+ app/src/main/java/info/androidhive/firebase/Sales.java | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/app/src/main/java/info/androidhive/firebase/Sales.java b/app/src/main/java/info/androidhive/firebase/Sales.java
+index e42c586..70da3bf 100644
+--- a/app/src/main/java/info/androidhive/firebase/Sales.java
++++ b/app/src/main/java/info/androidhive/firebase/Sales.java
+@@ -115,18 +115,21 @@ public class Sales extends AppCompatActivity {
+                                 String cantidad_store="Ventas del dia:";
+ 
+                                 int our_value=Integer.parseInt(value);
+-                                DatabaseReference childRef = reference.child(key);
++                                DatabaseReference childRef = reference.child(key).child("CantidadStore");
+ 
+-                                int auxBD = Integer.parseInt(dataSnapshot.child(key).getValue().toString());
++                                int auxBD = Integer.parseInt(dataSnapshot.child(key).child("CantidadStore").getValue().toString());
++
++                                if(auxBD>0 && our_value<auxBD){
+ 
+-                                if(auxBD>0){
+                                     int auxOper = auxBD - our_value;
+                                     childRef.setValue(auxOper);
+                                     Toast.makeText(getApplicationContext(),"VENDIDO",Toast.LENGTH_SHORT).show();
+ 
+ 
+                                     //DatabaseReference newRef = rootRef.child(cantidad_store).push();
+-                                    DatabaseReference newRef = rootRef.child(key).child(key).push();
++                                    DatabaseReference newRef=rootRef.child(key).push();
++                                    newRef = reference.child(key).child(cantidad_store).push();
++
+                                     newRef.setValue(our_value);
+                                        // categorias.add(cantidad_store);
+ 
+-- 
+1.9.1
+

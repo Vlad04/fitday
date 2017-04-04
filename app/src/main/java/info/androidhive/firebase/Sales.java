@@ -130,7 +130,6 @@ public class Sales extends AppCompatActivity {
                                     newRef = reference.child(key).child(cantidad_store).push();
 
                                     newRef.setValue(our_value);
-                                       // categorias.add(cantidad_store);
 
 
                                 }

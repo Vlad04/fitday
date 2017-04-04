@@ -1,0 +1,585 @@
+From a0b071361c232be3598a06f2e87e977929ccec98 Mon Sep 17 00:00:00 2001
+From: Vladimir Rodriguez <vladiir.rod96@gmail.com>
+Date: Tue, 4 Apr 2017 07:28:37 -0500
+Subject: [PATCH 1/2] Sales part version 1
+
+Falta moverme entre los subhijos de las categorias, aun estoy haciendo eso
+---
+ app/src/main/AndroidManifest.xml                   |   2 +-
+ .../main/java/info/androidhive/firebase/Sales.java | 157 +++++++++++++++++++++
+ .../info/androidhive/firebase/SecondActivity.java  |   2 +-
+ .../info/androidhive/firebase/ThirdActivity.java   |  13 --
+ app/src/main/res/drawable/side_nav_bar.xml         |   9 ++
+ app/src/main/res/layout/activity_sales2.xml        | 105 ++++++++++++++
+ app/src/main/res/layout/activity_third.xml         | 110 ---------------
+ app/src/main/res/menu/activity_sales_drawer.xml    |  36 +++++
+ app/src/main/res/menu/sales.xml                    |   9 ++
+ app/src/main/res/values/dimens.xml                 |   3 +
+ app/src/main/res/values/drawables.xml              |   8 ++
+ app/src/main/res/values/strings.xml                |   6 +
+ 12 files changed, 335 insertions(+), 125 deletions(-)
+ create mode 100644 app/src/main/java/info/androidhive/firebase/Sales.java
+ delete mode 100644 app/src/main/java/info/androidhive/firebase/ThirdActivity.java
+ create mode 100644 app/src/main/res/drawable/side_nav_bar.xml
+ create mode 100644 app/src/main/res/layout/activity_sales2.xml
+ delete mode 100644 app/src/main/res/layout/activity_third.xml
+ create mode 100644 app/src/main/res/menu/activity_sales_drawer.xml
+ create mode 100644 app/src/main/res/menu/sales.xml
+ create mode 100644 app/src/main/res/values/drawables.xml
+
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+index adcf73b..086085f 100644
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -33,10 +33,10 @@
+             android:label="@string/title_activity_reset_password"
+             android:theme="@style/AppTheme.NoActionBar" />
+         <activity android:name=".SecondActivity" />
+-        <activity android:name=".ThirdActivity" />
+         <activity android:name=".ContactoActivity" />
+         <activity android:name=".StoreActivity" />
+         <activity android:name=".SuppliesActivity" />
++        <activity android:name=".Sales"></activity>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+diff --git a/app/src/main/java/info/androidhive/firebase/Sales.java b/app/src/main/java/info/androidhive/firebase/Sales.java
+new file mode 100644
+index 0000000..e42c586
+--- /dev/null
++++ b/app/src/main/java/info/androidhive/firebase/Sales.java
+@@ -0,0 +1,157 @@
++package info.androidhive.firebase;
++
++import android.content.Intent;
++import android.support.annotation.IntegerRes;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.util.Log;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.google.firebase.FirebaseApp;
++import com.google.firebase.database.DataSnapshot;
++import com.google.firebase.database.DatabaseError;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.database.ValueEventListener;
++
++import java.util.ArrayList;
++
++public class Sales extends AppCompatActivity {
++
++    Button buttonSales;
++    Button buttonUpdate;
++    Intent i;
++    EditText editTextValor;
++    EditText editTextArticulo;
++    Button contacts_button;
++    Button store_button;
++    ArrayList<TextView> textViewsVal;
++    ArrayList<TextView> textViewsName;
++    ArrayList<String> categorias;
++    FirebaseDatabase database = FirebaseDatabase.getInstance();
++    DatabaseReference reference;
++    TextView textViewLacteos1;
++    TextView textViewLacteosLecheValor;
++    TextView textViewLacteos2;
++    TextView textViewLacteosLecheValor2;
++    TextView textViewLacteos3;
++    TextView textViewLacteosLecheValor3;
++    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_sales2);
++        categorias = new ArrayList<String>();
++        i = getIntent();
++        buttonSales = (Button) findViewById(R.id.sales);
++        editTextValor = (EditText) findViewById(R.id.quantity);
++        editTextArticulo = (EditText) findViewById(R.id.article);
++        textViewLacteos1 = (TextView)findViewById(R.id.textViewLacteos1);
++        textViewLacteosLecheValor = (TextView)findViewById(R.id.textViewLecheValor);
++        textViewLacteos2 = (TextView)findViewById(R.id.textViewLacteos2);
++        textViewLacteosLecheValor2 = (TextView)findViewById(R.id.textViewLecheValor2);
++        textViewLacteos3 = (TextView)findViewById(R.id.textView10);
++        textViewLacteosLecheValor3 = (TextView)findViewById(R.id.textView11);
++        textViewsName = new ArrayList<TextView>();
++        textViewsName.add(textViewLacteos1);
++        textViewsName.add(textViewLacteos2);
++        textViewsName.add(textViewLacteos3);
++
++        textViewsVal = new ArrayList<TextView>();
++        textViewsVal.add(textViewLacteosLecheValor);
++        textViewsVal.add(textViewLacteosLecheValor2);
++        textViewsVal.add(textViewLacteosLecheValor3);
++        Button btn_back=(Button)findViewById(R.id.btn_back);
++
++        btn_back.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                Intent intent = new Intent(Sales.this, LoginActivity.class);
++                startActivity(intent);
++            }
++        });
++
++
++
++    }
++
++
++    protected void onStart() {
++        super.onStart();
++        //if (i.getStringExtra("Test").equals("Lacteos")) {
++            reference = database.getReference("Lacteos");
++
++            reference.addValueEventListener(new ValueEventListener() {
++                @Override
++                public void onDataChange(final DataSnapshot dataSnapshot) {
++                    int i = 0;
++                    for (DataSnapshot child : dataSnapshot.getChildren()) {
++                        if (i < 3) {
++//                            textViewsName.get(i).setText(child.getKey());
++  //                          textViewsVal.get(i).setText(child.getValue().toString());
++                            Log.d("User key", child.getKey());
++                            Log.d("User ref", child.getRef().toString());
++                            Log.d("User val", child.getValue().toString());
++                            i++;
++                        }
++
++                    }
++
++
++                    buttonSales.setOnClickListener(new View.OnClickListener() {
++
++                        //AQUI SE DEBE HACER EL CAMBIO EN EL SIGUIENTE COMENTARIO SE DEBE RECIBIR EL VALOR DE TIPO INT
++                        //DEL KEY QUE ESTAMOS LLAMANDO, Y ESO RESTARLE "VALUE" PARA QUE SE ACTUALIE EL STORE
++                        @Override
++                        public void onClick(View v) {
++
++                                String key = editTextArticulo.getText().toString().trim();
++                                String value = editTextValor.getText().toString();
++                                String cantidad_store="Ventas del dia:";
++
++                                int our_value=Integer.parseInt(value);
++                                DatabaseReference childRef = reference.child(key);
++
++                                int auxBD = Integer.parseInt(dataSnapshot.child(key).getValue().toString());
++
++                                if(auxBD>0){
++                                    int auxOper = auxBD - our_value;
++                                    childRef.setValue(auxOper);
++                                    Toast.makeText(getApplicationContext(),"VENDIDO",Toast.LENGTH_SHORT).show();
++
++
++                                    //DatabaseReference newRef = rootRef.child(cantidad_store).push();
++                                    DatabaseReference newRef = rootRef.child(key).child(key).push();
++                                    newRef.setValue(our_value);
++                                       // categorias.add(cantidad_store);
++
++
++                                }
++                                else{
++                                    Toast.makeText(getApplicationContext(),"No hay suficientes productos",Toast.LENGTH_SHORT).show();
++                                }
++
++
++                        }
++
++                        });
++
++
++                }
++                @Override
++                public void onCancelled(DatabaseError databaseError) {
++
++                }
++            });
++
++        }
++
++
++
++    }
++
+diff --git a/app/src/main/java/info/androidhive/firebase/SecondActivity.java b/app/src/main/java/info/androidhive/firebase/SecondActivity.java
+index d2407bb..b3762e5 100644
+--- a/app/src/main/java/info/androidhive/firebase/SecondActivity.java
++++ b/app/src/main/java/info/androidhive/firebase/SecondActivity.java
+@@ -32,7 +32,7 @@ public class SecondActivity extends AppCompatActivity {
+       btnSales.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+-                Intent intent = new Intent(SecondActivity.this,ThirdActivity.class);
++                Intent intent = new Intent(SecondActivity.this,Sales.class);
+                 startActivity(intent);
+             }
+         });
+diff --git a/app/src/main/java/info/androidhive/firebase/ThirdActivity.java b/app/src/main/java/info/androidhive/firebase/ThirdActivity.java
+deleted file mode 100644
+index 630bf6c..0000000
+--- a/app/src/main/java/info/androidhive/firebase/ThirdActivity.java
++++ /dev/null
+@@ -1,13 +0,0 @@
+-package info.androidhive.firebase;
+-
+-import android.support.v7.app.AppCompatActivity;
+-import android.os.Bundle;
+-
+-public class ThirdActivity extends AppCompatActivity {
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        setContentView(R.layout.activity_third);
+-    }
+-}
+diff --git a/app/src/main/res/drawable/side_nav_bar.xml b/app/src/main/res/drawable/side_nav_bar.xml
+new file mode 100644
+index 0000000..458b4b0
+--- /dev/null
++++ b/app/src/main/res/drawable/side_nav_bar.xml
+@@ -0,0 +1,9 @@
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++    <gradient
++        android:angle="135"
++        android:centerColor="#4CAF50"
++        android:endColor="#2E7D32"
++        android:startColor="#81C784"
++        android:type="linear" />
++</shape>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_sales2.xml b/app/src/main/res/layout/activity_sales2.xml
+new file mode 100644
+index 0000000..4c2dde7
+--- /dev/null
++++ b/app/src/main/res/layout/activity_sales2.xml
+@@ -0,0 +1,105 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:layout_gravity="center"
++    android:background="@color/colorPrimary"
++    android:fitsSystemWindows="true"
++    tools:context="info.androidhive.firebase.Sales">
++
++    <ProgressBar
++        android:id="@+id/progressBar"
++        android:layout_width="30dp"
++        android:layout_height="30dp"
++        android:layout_gravity="center|bottom"
++        android:layout_marginBottom="20dp"
++        android:visibility="gone" />
++
++    <LinearLayout
++        android:layout_width="fill_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="30dp"
++        android:gravity="top|left"
++        android:orientation="vertical"
++        android:padding="@dimen/activity_horizontal_margin"
++        android:background="@drawable/background2"
++        android:weightSum="1">
++
++
++        <ImageView
++            android:layout_width="76dp"
++            android:layout_height="44dp"
++            app:srcCompat="@drawable/logo"
++            android:id="@+id/imageView3" />
++
++        <TextView
++            android:layout_width="87dp"
++            android:layout_height="wrap_content"
++            android:layout_gravity="top|center_horizontal"
++            android:padding="10dp"
++            android:text="Sales"
++            android:textColor="@android:color/white"
++            android:textSize="20dp"
++            android:layout_weight="0.12" />
++
++        <android.support.design.widget.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content">
++
++            <EditText
++                android:id="@+id/article"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:layout_marginBottom="10dp"
++                android:layout_marginTop="20dp"
++                android:hint="Enter the product"
++                android:inputType="none"
++                android:textColor="@android:color/white"
++                android:textColorHint="@android:color/white"
++                android:layout_weight="1" />
++
++
++        </android.support.design.widget.TextInputLayout>
++
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="textPersonName"
++            android:ems="10"
++            android:id="@+id/quantity"
++            android:hint="Enter the quantity" />
++
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginBottom="10dp"
++            android:gravity="center_horizontal"
++            android:padding="@dimen/activity_horizontal_margin"
++            android:textColor="@android:color/white"
++            android:textSize="14dp" />
++
++        <!-- Login Button -->
++
++        <Button
++            android:id="@+id/sales"
++            android:layout_width="fill_parent"
++            android:layout_height="45dp"
++            android:layout_marginTop="20dip"
++            android:background="@drawable/buttonback"
++            android:text="Sale"
++            android:textColor="@android:color/black" />
++
++
++        <Button
++            android:id="@+id/btn_back"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:background="@null"
++            android:text="@string/btn_back"
++            android:textColor="@color/colorAccent" />
++
++    </LinearLayout>
++</android.support.design.widget.CoordinatorLayout>
+diff --git a/app/src/main/res/layout/activity_third.xml b/app/src/main/res/layout/activity_third.xml
+deleted file mode 100644
+index 7161869..0000000
+--- a/app/src/main/res/layout/activity_third.xml
++++ /dev/null
+@@ -1,110 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/activity_third"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:paddingBottom="@dimen/activity_vertical_margin"
+-    android:paddingLeft="@dimen/activity_horizontal_margin"
+-    android:paddingRight="@dimen/activity_horizontal_margin"
+-    android:paddingTop="@dimen/activity_vertical_margin"
+-    tools:context="info.androidhive.firebase.ThirdActivity"
+-    android:background="@drawable/background2">
+-
+-    <Button
+-        android:text="Scan code"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="14dp"
+-        android:id="@+id/button2"
+-        android:layout_below="@+id/textView4"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentLeft="true" />
+-
+-    <EditText
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:inputType="textPersonName"
+-        android:ems="10"
+-        android:layout_alignBottom="@+id/button2"
+-        android:layout_toEndOf="@+id/button2"
+-        android:id="@+id/editText3"
+-        android:layout_toRightOf="@+id/button2" />
+-
+-    <TextView
+-        android:text="Item 1"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="35dp"
+-        android:id="@+id/textView8"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+-        android:layout_below="@+id/button2"
+-        android:background="@color/colorAccent"
+-        android:autoText="false" />
+-
+-    <TextView
+-        android:text="Item 2"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/textView7"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+-        android:background="@color/colorPrimary"
+-        android:autoText="false"
+-        android:layout_centerVertical="true"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentLeft="true" />
+-
+-    <TextView
+-        android:text="Item 3"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="19dp"
+-        android:id="@+id/textView9"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+-        android:background="@android:color/holo_blue_dark"
+-        android:autoText="false"
+-        android:layout_below="@+id/textView7"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentLeft="true" />
+-
+-    <Button
+-        android:text="Add Item"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignParentBottom="true"
+-        android:layout_toStartOf="@+id/editText3"
+-        android:layout_marginBottom="40dp"
+-        android:id="@+id/button3"
+-        android:layout_toLeftOf="@+id/editText3" />
+-
+-    <Button
+-        android:text="Clone Item"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignTop="@+id/button3"
+-        android:layout_toEndOf="@+id/textView9"
+-        android:id="@+id/button4"
+-        android:layout_toRightOf="@+id/textView9" />
+-
+-    <Button
+-        android:text="Remove item"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignTop="@+id/button4"
+-        android:layout_toEndOf="@+id/button4"
+-        android:layout_marginStart="21dp"
+-        android:id="@+id/button5"
+-        android:layout_toRightOf="@+id/button4"
+-        android:layout_marginLeft="21dp" />
+-
+-    <TextView
+-        android:text="Sales"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/textView4"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+-        android:layout_alignParentTop="true"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentLeft="true" />
+-
+-</RelativeLayout>
+diff --git a/app/src/main/res/menu/activity_sales_drawer.xml b/app/src/main/res/menu/activity_sales_drawer.xml
+new file mode 100644
+index 0000000..2a7f467
+--- /dev/null
++++ b/app/src/main/res/menu/activity_sales_drawer.xml
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <group android:checkableBehavior="single">
++        <item
++            android:id="@+id/nav_camera"
++            android:icon="@drawable/ic_menu_camera"
++            android:title="Import" />
++        <item
++            android:id="@+id/nav_gallery"
++            android:icon="@drawable/ic_menu_gallery"
++            android:title="Gallery" />
++        <item
++            android:id="@+id/nav_slideshow"
++            android:icon="@drawable/ic_menu_slideshow"
++            android:title="Slideshow" />
++        <item
++            android:id="@+id/nav_manage"
++            android:icon="@drawable/ic_menu_manage"
++            android:title="Tools" />
++    </group>
++
++    <item android:title="Communicate">
++        <menu>
++            <item
++                android:id="@+id/nav_share"
++                android:icon="@drawable/ic_menu_share"
++                android:title="Share" />
++            <item
++                android:id="@+id/nav_send"
++                android:icon="@drawable/ic_menu_send"
++                android:title="Send" />
++        </menu>
++    </item>
++
++</menu>
+diff --git a/app/src/main/res/menu/sales.xml b/app/src/main/res/menu/sales.xml
+new file mode 100644
+index 0000000..a2411e3
+--- /dev/null
++++ b/app/src/main/res/menu/sales.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++    <item
++        android:id="@+id/action_settings"
++        android:orderInCategory="100"
++        android:title="@string/action_settings"
++        app:showAsAction="never" />
++</menu>
+diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+index 793085e..708c64c 100644
+--- a/app/src/main/res/values/dimens.xml
++++ b/app/src/main/res/values/dimens.xml
+@@ -4,4 +4,7 @@
+     <dimen name="activity_vertical_margin">16dp</dimen>
+     <dimen name="fab_margin">16dp</dimen>
+     <dimen name="logo_w_h">100dp</dimen>
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="nav_header_vertical_spacing">16dp</dimen>
++    <dimen name="nav_header_height">160dp</dimen>
+ </resources>
+diff --git a/app/src/main/res/values/drawables.xml b/app/src/main/res/values/drawables.xml
+new file mode 100644
+index 0000000..52c6a6c
+--- /dev/null
++++ b/app/src/main/res/values/drawables.xml
+@@ -0,0 +1,8 @@
++<resources xmlns:android="http://schemas.android.com/apk/res/android">
++    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
++    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
++    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
++    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
++    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
++    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
++</resources>
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index f602f54..9fac258 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -28,4 +28,10 @@
+     <string name="btn_sign_out">Sign Out</string>
+     <string name="lbl_forgot_password">Forgot password?</string>
+     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
++    <string name="title_activity_sales">Sales</string>
++
++    <string name="navigation_drawer_open">Open navigation drawer</string>
++    <string name="navigation_drawer_close">Close navigation drawer</string>
++
++    <string name="action_settings">Settings</string>
+ </resources>
+-- 
+1.9.1
+
