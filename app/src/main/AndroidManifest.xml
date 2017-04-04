@@ -37,7 +37,7 @@
         <activity android:name=".ContactoActivity" />
         <activity android:name=".StoreActivity" />
         <activity android:name=".SuppliesActivity" />
-        
+        <activity android:name=".Sales"/>
     </application>
 
 </manifest>
