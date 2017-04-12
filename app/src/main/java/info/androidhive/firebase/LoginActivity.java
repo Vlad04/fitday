@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     //En el caso de que la autentificacion fue EXITOSA, envia al usuario a la clase llamada
                                     //SecondActivity
-                                    Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }

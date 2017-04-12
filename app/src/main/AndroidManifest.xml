@@ -32,12 +32,11 @@
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SecondActivity" />
-        <activity android:name=".ThirdActivity" />
-        <activity android:name=".ContactoActivity" />
-        <activity android:name=".StoreActivity" />
-        <activity android:name=".SuppliesActivity" />
-        <activity android:name=".Sales"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".VerRutina" />
+        <activity android:name=".GenerarPlan" />
+        <activity android:name=".Calendario" />
+        <activity android:name=".ExpertSystem"></activity>
     </application>
 
 </manifest>

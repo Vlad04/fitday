@@ -13,21 +13,21 @@
         android:layout_height="30dp"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/background2"
+        android:background="@drawable/loginbackground"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/unnamed"
             android:id="@+id/imageView" />
 
         <android.support.design.widget.TextInputLayout
@@ -68,10 +68,10 @@
             android:shape="oval"
             android:layout_height="47dp"
             android:layout_marginTop="20dip"
-            android:background="@drawable/buttonback"
+            android:background="?android:attr/colorPrimaryDark"
             android:text="@string/btn_login"
-            android:width="1dip" android:color="#4fa5d5"
-            android:textColor="@android:color/black" />
+            android:width="1dip" android:color="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_reset_password"
