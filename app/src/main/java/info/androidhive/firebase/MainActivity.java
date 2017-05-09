@@ -11,7 +11,7 @@ import android.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity  implements FragmentWithButton.OnFragmentInteractionListener{
 
-    Button crear_rutina, ver_rutina, sing_out_button;
+    Button crear_rutina, ver_rutina, sing_out_button, test_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
         crear_rutina=(Button)findViewById(R.id.crear_rutina_button);
         ver_rutina=(Button)findViewById(R.id.ver_rutina_button);
         sing_out_button=(Button)findViewById(R.id.Sign_out_button);
-
+        test_button=(Button)findViewById(R.id.Test_button);
 
         /*crear_rutina.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +33,14 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
         ver_rutina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,VerRutina.class);
+                Intent intent=new Intent(MainActivity.this,Calendario.class);
+                startActivity(intent);
+            }
+        });
+        test_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,ExpertSystem.class);
                 startActivity(intent);
             }
         });

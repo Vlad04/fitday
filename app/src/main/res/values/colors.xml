@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#0097a7</color>
     <color name="colorAccent">#9cbcc8</color>
 
-    <color name="bg_login">#b72873be</color>
+    <color name="bg_login">#b7ffffff</color>
     <color name="bg_register">#2e3237</color>
     <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>

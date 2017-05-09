@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="info.androidhive.firebase.GenerarPlan"
-    android:background="@drawable/backgroundappb">
+    android:background="@drawable/loginbackground">
 
     <Button
         android:text="Generate"
@@ -31,4 +31,195 @@
         android:id="@+id/imageView6"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/calentamiento_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calentamiento_textview"
+        android:layout_alignLeft="@+id/calentamiento_textview"
+        android:layout_alignStart="@+id/calentamiento_textview"
+        android:layout_marginTop="13dp"
+        android:id="@+id/peso_calentamiento_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/peso_calentamiento_textview"
+        android:layout_alignLeft="@+id/calentamiento_valor"
+        android:layout_alignStart="@+id/calentamiento_valor"
+        android:id="@+id/peso_calentaiento_valor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/peso_calentamiento_textview"
+        android:layout_marginTop="13dp"
+        android:id="@+id/muscle_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/muscle_textview"
+        android:layout_alignLeft="@+id/peso_calentaiento_valor"
+        android:layout_alignStart="@+id/peso_calentaiento_valor"
+        android:id="@+id/muscle_valor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/muscle_textview"
+        android:layout_alignLeft="@+id/muscle_textview"
+        android:layout_alignStart="@+id/muscle_textview"
+        android:layout_marginTop="11dp"
+        android:id="@+id/exercise_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/exercise_textview"
+        android:layout_alignLeft="@+id/muscle_valor"
+        android:singleLine="true"
+        android:layout_alignStart="@+id/muscle_valor"
+        android:id="@+id/exercise_valor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/repetitions_textview"
+        android:layout_alignRight="@+id/exercise_valor"
+        android:layout_alignEnd="@+id/exercise_valor"
+        android:id="@+id/repetitions_valor"
+        android:text="hola" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/series_textview"
+        android:layout_alignLeft="@+id/repetitions_valor"
+        android:layout_alignStart="@+id/repetitions_valor"
+        android:id="@+id/series_valor"
+        android:text="hola" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/weight_textview"
+        android:layout_alignLeft="@+id/series_valor"
+        android:layout_alignStart="@+id/series_valor"
+        android:id="@+id/weight_valor"
+        android:text="hola" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/calentamiento_textview"
+        android:layout_alignStart="@+id/calentamiento_textview"
+        android:layout_marginTop="29dp"
+        android:id="@+id/rutina_textview" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:singleLine="true"
+        android:maxLength="30"
+        android:layout_height="wrap_content"
+        android:id="@+id/calentamiento_valor"
+        android:layout_alignBaseline="@+id/calentamiento_textview"
+        android:layout_alignBottom="@+id/calentamiento_textview"
+        android:layout_toEndOf="@+id/generate_plan_button"
+        android:layout_toRightOf="@+id/generate_plan_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weight_textview"
+        android:text="hola"
+        android:layout_above="@+id/generate_plan_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/series_textview"
+        android:text="hola"
+        android:layout_above="@+id/weight_textview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/repetitions_textview"
+        android:text="hola"
+        android:layout_above="@+id/series_valor"
+        android:layout_toRightOf="@+id/exercise_textview"
+        android:layout_toEndOf="@+id/exercise_textview" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exercise_textview"
+        android:layout_toRightOf="@+id/exercise_textview"
+        android:layout_toEndOf="@+id/exercise_textview"
+        android:id="@+id/Exercise_2_textView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Exercise_2_textView"
+        android:layout_toRightOf="@+id/exercise_textview"
+        android:layout_toEndOf="@+id/exercise_textview"
+        android:id="@+id/Exercise_3_TextView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Exercise_3_TextView"
+        android:layout_toRightOf="@+id/exercise_textview"
+        android:layout_toEndOf="@+id/exercise_textview"
+        android:id="@+id/Exercise_4_TextView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exercise_valor"
+        android:layout_alignRight="@+id/exercise_valor"
+        android:layout_alignEnd="@+id/exercise_valor"
+        android:id="@+id/Exercise_2_valor" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Exercise_2_valor"
+        android:layout_alignRight="@+id/Exercise_2_valor"
+        android:layout_alignEnd="@+id/Exercise_2_valor"
+        android:id="@+id/Exercise_3_valor" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Exercise_3_valor"
+        android:layout_alignRight="@+id/exercise_valor"
+        android:layout_alignEnd="@+id/exercise_valor"
+        android:id="@+id/Exercise_4_Value" />
+
 </RelativeLayout>

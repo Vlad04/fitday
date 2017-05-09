@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="info.androidhive.firebase.ExpertSystem"
-    android:background="@drawable/backgroundappb">
+    android:background="@drawable/loginbackground">
 
     <Button
         android:text="Done"
@@ -36,68 +36,85 @@
         android:layout_marginTop="18dp"
         android:id="@+id/textView" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textColorHint="@android:color/white"
-        android:textSize="14dp"
-        android:ems="10"
-        android:layout_marginTop="17dp"
-        android:id="@+id/how_many_days"
-        android:textStyle="italic"
+        android:layout_marginTop="40dp"
+        android:id="@+id/spinner_days"
         android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="From 5 days of training how many did you complete?" />
+        android:layout_alignParentStart="true" />
 
-    <EditText
+    <TextView
+        android:text="From 5 days of training how many did you complete?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:textStyle="italic"
-        android:ems="10"
-        android:id="@+id/did_hurt"
-        android:layout_below="@+id/how_many_days"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:textColorHint="@android:color/white"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Did you get hurt ? (Y=1/N=0)" />
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView3" />
 
-    <EditText
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:id="@+id/Spinner_hurt"
+        android:layout_below="@+id/spinner_days"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Did you get hurt?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/you_tired"
+        android:layout_below="@+id/spinner_days"
         android:textStyle="italic"
-        android:textColorHint="@android:color/white"
-        android:layout_below="@+id/did_hurt"
+        android:textColor="@android:color/white"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Are you tired ? (Y=1/N=0)" />
+        android:layout_marginTop="11dp"
+        android:id="@+id/textView9" />
 
-    <EditText
+    <TextView
+        android:text="Are you tired?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
+        android:layout_below="@+id/Spinner_hurt"
         android:textStyle="italic"
-        android:id="@+id/heavy_Week"
-        android:textSize="16dp"
-        android:textColorHint="@android:color/white"
-        android:hint="Are you going to have a heavy week ? (Y=1/N=0)"
-        android:layout_below="@+id/you_tired"
+        android:textColor="@android:color/white"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="12dp"
+        android:id="@+id/textView10" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/spinner_tired" />
+
+    <TextView
+        android:text="Are you going to have a heavy week?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textColor="@android:color/white"
+        android:id="@+id/textView13"
+        android:layout_below="@+id/spinner_tired"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/spinner_heavy_week" />
 </RelativeLayout>
