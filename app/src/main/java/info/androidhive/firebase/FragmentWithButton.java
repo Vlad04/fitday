@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -264,24 +265,33 @@ public class FragmentWithButton extends Fragment implements ValueEventListener {
         fragmen_button_db.setOnClickListener(new View.OnClickListener() {
             @Override
 
+
             public void onClick(View v) {
 //              String key = fragment_input_db.getText().toString().trim();
+
+                if(user_name.length()==0 || user_age.length()==0 || user_weight.length()==0)
+                {
+                    Toast.makeText(getActivity(),"Please enter the information",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+
 
                     final String routine_name = "Usuario " + user_name.getText().toString();
 
 //              String name=user_name.getText().toString().trim();
                     final int age = Integer.parseInt(user_age.getText().toString().trim());
                     final double weight_user = Double.parseDouble(user_weight.getText().toString().trim());
-                Intent shared_intent_name = new Intent(getActivity(), GenerarPlan.class);
-                String strName = null;
-                shared_intent_name.putExtra("EXTRA_SESSION_ID", strName);
-                startActivity(shared_intent_name);
+                    Intent shared_intent_name = new Intent(getActivity(), GenerarPlan.class);
+                    String strName = null;
+                    shared_intent_name.putExtra("EXTRA_SESSION_ID", strName);
+                    startActivity(shared_intent_name);
 
                     //Level user
                     DatabaseReference name_Ref = Root_reference.child(routine_name).child("Name ");
                     DatabaseReference age_Ref = Root_reference.child(routine_name).child("Age ");
                     DatabaseReference weight_Ref = Root_reference.child(routine_name).child("Weight ");
-                    DatabaseReference user_level_Ref=Root_reference.child(routine_name).child("Level ");
+                    DatabaseReference user_level_Ref = Root_reference.child(routine_name).child("Level ");
 /*
 calentamiento="2 Sets of 10-12 repetitions";    LISTO
                 musculo="Chest";            LISTO
@@ -295,182 +305,181 @@ calentamiento="2 Sets of 10-12 repetitions";    LISTO
                 repeticiones="4-6";     LISTO
  */
                     //Level routine
-                DatabaseReference routine_plan_Ref_date = Root_reference.child(routine_name).child("Routine ").child("Date Created");
-                DatabaseReference routine_plan_Ref_day = Root_reference.child(routine_name).child("Routine ").child("Monday ");
-                //MONDAY
-                DatabaseReference routine_plan_Ref_machine = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 1 ");
-                DatabaseReference routine_plan_Ref_machine_2 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 2 ");
-                DatabaseReference routine_plan_Ref_machine_3 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 3 ");
-                DatabaseReference routine_plan_Ref_machine_4 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 4 ");
-                //TUESDAY
-                DatabaseReference routine_plan_Ref_machine_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 1 ");
-                DatabaseReference routine_plan_Ref_machine_2_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 2 ");
-                DatabaseReference routine_plan_Ref_machine_3_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 3 ");
-                DatabaseReference routine_plan_Ref_machine_4_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 4 ");
-                //WEDNESDAY
-                DatabaseReference routine_plan_Ref_machine_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 1 ");
-                DatabaseReference routine_plan_Ref_machine_2_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 2 ");
-                DatabaseReference routine_plan_Ref_machine_3_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 3 ");
-                DatabaseReference routine_plan_Ref_machine_4_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 4 ");
-                //THURSDAY
-                DatabaseReference routine_plan_Ref_machine_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 1 ");
-                DatabaseReference routine_plan_Ref_machine_2_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 2 ");
-                DatabaseReference routine_plan_Ref_machine_3_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 3 ");
-                DatabaseReference routine_plan_Ref_machine_4_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 4 ");
-                //FRIDAY
-                DatabaseReference routine_plan_Ref_machine_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 1 ");
-                DatabaseReference routine_plan_Ref_machine_2_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 2 ");
-                DatabaseReference routine_plan_Ref_machine_3_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 3 ");
-                DatabaseReference routine_plan_Ref_machine_4_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 4 ");
+                    DatabaseReference routine_plan_Ref_date = Root_reference.child(routine_name).child("Routine ").child("Date Created");
+                    DatabaseReference routine_plan_Ref_day = Root_reference.child(routine_name).child("Routine ").child("Monday ");
+                    //MONDAY
+                    DatabaseReference routine_plan_Ref_machine = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 1 ");
+                    DatabaseReference routine_plan_Ref_machine_2 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 2 ");
+                    DatabaseReference routine_plan_Ref_machine_3 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 3 ");
+                    DatabaseReference routine_plan_Ref_machine_4 = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Exercise 4 ");
+                    //TUESDAY
+                    DatabaseReference routine_plan_Ref_machine_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 1 ");
+                    DatabaseReference routine_plan_Ref_machine_2_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 2 ");
+                    DatabaseReference routine_plan_Ref_machine_3_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 3 ");
+                    DatabaseReference routine_plan_Ref_machine_4_Martes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise 4 ");
+                    //WEDNESDAY
+                    DatabaseReference routine_plan_Ref_machine_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 1 ");
+                    DatabaseReference routine_plan_Ref_machine_2_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 2 ");
+                    DatabaseReference routine_plan_Ref_machine_3_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 3 ");
+                    DatabaseReference routine_plan_Ref_machine_4_Miercoles = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise 4 ");
+                    //THURSDAY
+                    DatabaseReference routine_plan_Ref_machine_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 1 ");
+                    DatabaseReference routine_plan_Ref_machine_2_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 2 ");
+                    DatabaseReference routine_plan_Ref_machine_3_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 3 ");
+                    DatabaseReference routine_plan_Ref_machine_4_Jueves = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise 4 ");
+                    //FRIDAY
+                    DatabaseReference routine_plan_Ref_machine_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 1 ");
+                    DatabaseReference routine_plan_Ref_machine_2_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 2 ");
+                    DatabaseReference routine_plan_Ref_machine_3_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 3 ");
+                    DatabaseReference routine_plan_Ref_machine_4_Viernes = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise 4 ");
 
 
-                //MONDAY
-                DatabaseReference routine_plan_Ref_peso = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Weight ");
-                DatabaseReference routine_plan_Ref_repetitions = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Repetitions ");
-                DatabaseReference routine_plan_Ref_series = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Series ");
-                DatabaseReference routine_plan_Ref_calentamiento=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Calentamiento ");
-                DatabaseReference routine_plan_Ref_weight_calentamiento=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Peso de calentamiento ");
-                DatabaseReference routine_plan_Ref_musculo=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Muscle ");
+                    //MONDAY
+                    DatabaseReference routine_plan_Ref_peso = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Weight ");
+                    DatabaseReference routine_plan_Ref_repetitions = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Repetitions ");
+                    DatabaseReference routine_plan_Ref_series = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Series ");
+                    DatabaseReference routine_plan_Ref_calentamiento = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Calentamiento ");
+                    DatabaseReference routine_plan_Ref_weight_calentamiento = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Peso de calentamiento ");
+                    DatabaseReference routine_plan_Ref_musculo = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Monday ").child("Muscle ");
 
 
-                //TUESDAY
-                DatabaseReference routine_plan_Ref_machine_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise ");
-                DatabaseReference routine_plan_Ref_peso_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Weight ");
-                DatabaseReference routine_plan_Ref_repetitions_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Repetitions ");
-                DatabaseReference routine_plan_Ref_series_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Series ");
-                DatabaseReference routine_plan_Ref_calentamiento_MARTES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Calentamiento ");
-                DatabaseReference routine_plan_Ref_weight_calentamiento_MARTES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Peso de calentamiento ");
-                DatabaseReference routine_plan_Ref_musculo_MARTES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Muscle ");
+                    //TUESDAY
+                    //DatabaseReference routine_plan_Ref_machine_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Exercise ");
+                    DatabaseReference routine_plan_Ref_peso_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Weight ");
+                    DatabaseReference routine_plan_Ref_repetitions_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Repetitions ");
+                    DatabaseReference routine_plan_Ref_series_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Series ");
+                    DatabaseReference routine_plan_Ref_calentamiento_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Calentamiento ");
+                    DatabaseReference routine_plan_Ref_weight_calentamiento_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Peso de calentamiento ");
+                    DatabaseReference routine_plan_Ref_musculo_MARTES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Tuesday ").child("Muscle ");
 
 
-                //WEDNESDAY
-                DatabaseReference routine_plan_Ref_machine_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise ");
-                DatabaseReference routine_plan_Ref_peso_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Weight ");
-                DatabaseReference routine_plan_Ref_repetitions_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Repetitions ");
-                DatabaseReference routine_plan_Ref_series_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Series ");
-                DatabaseReference routine_plan_Ref_calentamiento_MIERCOLES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Calentamiento ");
-                DatabaseReference routine_plan_Ref_weight_calentamiento_MIERCOLES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Peso de calentamiento ");
-                DatabaseReference routine_plan_Ref_musculo_MIERCOLES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Muscle ");
+                    //WEDNESDAY
+                    //DatabaseReference routine_plan_Ref_machine_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Exercise ");
+                    DatabaseReference routine_plan_Ref_peso_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Weight ");
+                    DatabaseReference routine_plan_Ref_repetitions_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Repetitions ");
+                    DatabaseReference routine_plan_Ref_series_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Series ");
+                    DatabaseReference routine_plan_Ref_calentamiento_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Calentamiento ");
+                    DatabaseReference routine_plan_Ref_weight_calentamiento_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Peso de calentamiento ");
+                    DatabaseReference routine_plan_Ref_musculo_MIERCOLES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Wednesday ").child("Muscle ");
 
-                //THURSDAY
-                DatabaseReference routine_plan_Ref_machine_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise ");
-                DatabaseReference routine_plan_Ref_peso_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Weight ");
-                DatabaseReference routine_plan_Ref_repetitions_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Repetitions ");
-                DatabaseReference routine_plan_Ref_series_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Series ");
-                DatabaseReference routine_plan_Ref_calentamiento_JUEVES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Calentamiento ");
-                DatabaseReference routine_plan_Ref_weight_calentamiento_JUEVES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Peso de calentamiento ");
-                DatabaseReference routine_plan_Ref_musculo_JUEVES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Muscle ");
+                    //THURSDAY
+                    //DatabaseReference routine_plan_Ref_machine_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Exercise ");
+                    DatabaseReference routine_plan_Ref_peso_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Weight ");
+                    DatabaseReference routine_plan_Ref_repetitions_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Repetitions ");
+                    DatabaseReference routine_plan_Ref_series_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Series ");
+                    DatabaseReference routine_plan_Ref_calentamiento_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Calentamiento ");
+                    DatabaseReference routine_plan_Ref_weight_calentamiento_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Peso de calentamiento ");
+                    DatabaseReference routine_plan_Ref_musculo_JUEVES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Thursday ").child("Muscle ");
 
-                //FRIDAY
-                DatabaseReference routine_plan_Ref_machine_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise ");
-                DatabaseReference routine_plan_Ref_peso_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Weight ");
-                DatabaseReference routine_plan_Ref_repetitions_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Repetitions ");
-                DatabaseReference routine_plan_Ref_series_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Series ");
-                DatabaseReference routine_plan_Ref_calentamiento_VIERNES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Calentamiento ");
-                DatabaseReference routine_plan_Ref_weight_calentamiento_VIERNES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Peso de calentamiento ");
-                DatabaseReference routine_plan_Ref_musculo_VIERNES=Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Muscle ");
-
-
-                String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-
-                name_Ref.setValue(user_name.getText().toString().trim());      //check for trim method
-                age_Ref.setValue(age);
-                weight_Ref.setValue(weight_user);
-                user_level_Ref.setValue(user_level);
-                routine_plan_Ref_date.setValue(date);
-                routine_plan_Ref_musculo.setValue(musculo_lunes);
-                routine_plan_Ref_calentamiento.setValue(calentamiento);
-                routine_plan_Ref_weight_calentamiento.setValue(weight_calentamiento);
-
-                //MONDAY
-                routine_plan_Ref_machine.setValue(exercise_1);
-                routine_plan_Ref_machine_2.setValue(exercise_2);
-                routine_plan_Ref_machine_3.setValue(exercise_3);
-                routine_plan_Ref_machine_4.setValue(exercise_4);
-                //TUESDAY
-                routine_plan_Ref_machine_Martes.setValue(exercise_1_martes);
-                routine_plan_Ref_machine_2_Martes.setValue(exercise_2_martes);
-                routine_plan_Ref_machine_3_Martes.setValue(exercise_3_martes);
-                routine_plan_Ref_machine_4_Martes.setValue(exercise_4_martes);
-
-                //WEDNESDAY
-                routine_plan_Ref_machine_Miercoles.setValue(exercise_1_miercoles);
-                routine_plan_Ref_machine_2_Miercoles.setValue(exercise_2_miercoles);
-                routine_plan_Ref_machine_3_Miercoles.setValue(exercise_3_miercoles);
-                routine_plan_Ref_machine_4_Miercoles.setValue(exercise_4_miercoles);
-
-                //THURSDAY
-                routine_plan_Ref_machine_Jueves.setValue(exercise_1_jueves);
-                routine_plan_Ref_machine_2_Jueves.setValue(exercise_2_jueves);
-                routine_plan_Ref_machine_3_Jueves.setValue(exercise_3_jueves);
-                routine_plan_Ref_machine_4_Jueves.setValue(exercise_4_jueves);
-                //FRIDAY
-                routine_plan_Ref_machine_Viernes.setValue(exercise_1_viernes);
-                routine_plan_Ref_machine_2_Viernes.setValue(exercise_2_viernes);
-                routine_plan_Ref_machine_3_Viernes.setValue(exercise_3_viernes);
-                routine_plan_Ref_machine_4_Viernes.setValue(exercise_4_viernes);
-
-                routine_plan_Ref_peso.setValue(weight);
-                routine_plan_Ref_repetitions.setValue(repeticiones);
-                routine_plan_Ref_series.setValue(series);
+                    //FRIDAY
+                    //DatabaseReference routine_plan_Ref_machine_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Exercise ");
+                    DatabaseReference routine_plan_Ref_peso_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Weight ");
+                    DatabaseReference routine_plan_Ref_repetitions_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Repetitions ");
+                    DatabaseReference routine_plan_Ref_series_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Series ");
+                    DatabaseReference routine_plan_Ref_calentamiento_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Calentamiento ");
+                    DatabaseReference routine_plan_Ref_weight_calentamiento_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Peso de calentamiento ");
+                    DatabaseReference routine_plan_Ref_musculo_VIERNES = Root_reference.child(routine_name).child("Routine ").child("Machine ").child("Friday ").child("Muscle ");
 
 
-                //TUESDAY
+                    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
-                routine_plan_Ref_musculo_MARTES.setValue(musculo_martes);
-                routine_plan_Ref_calentamiento_MARTES.setValue(calentamiento);
-                routine_plan_Ref_weight_calentamiento_MARTES.setValue(weight_calentamiento);
-                routine_plan_Ref_machine_MARTES.setValue(exercise_1_martes);
-                routine_plan_Ref_machine_MARTES.setValue(exercise_2_martes);
-                routine_plan_Ref_machine_MARTES.setValue(exercise_3_martes);
-                routine_plan_Ref_machine_MARTES.setValue(exercise_4_martes);
-                routine_plan_Ref_peso_MARTES.setValue(weight);
-                routine_plan_Ref_repetitions_MARTES.setValue(repeticiones);
-                routine_plan_Ref_series_MARTES.setValue(series);
+                    name_Ref.setValue(user_name.getText().toString().trim());      //check for trim method
+                    age_Ref.setValue(age);
+                    weight_Ref.setValue(weight_user);
+                    user_level_Ref.setValue(user_level);
+                    routine_plan_Ref_date.setValue(date);
+                    routine_plan_Ref_musculo.setValue(musculo_lunes);
+                    routine_plan_Ref_calentamiento.setValue(calentamiento);
+                    routine_plan_Ref_weight_calentamiento.setValue(weight_calentamiento);
 
-                //WEDNESDAY
-                routine_plan_Ref_musculo_MIERCOLES.setValue(musculo_miercoles);
-                routine_plan_Ref_calentamiento_MIERCOLES.setValue(calentamiento);
-                routine_plan_Ref_weight_calentamiento_MIERCOLES.setValue(weight_calentamiento);
-                routine_plan_Ref_machine_MIERCOLES.setValue(exercise_1_miercoles);
-                routine_plan_Ref_machine_MIERCOLES.setValue(exercise_2_miercoles);
-                routine_plan_Ref_machine_MIERCOLES.setValue(exercise_3_miercoles);
-                routine_plan_Ref_machine_MIERCOLES.setValue(exercise_4_miercoles);
-                routine_plan_Ref_peso_MIERCOLES.setValue(weight);
-                routine_plan_Ref_repetitions_MIERCOLES.setValue(repeticiones);
-                routine_plan_Ref_series_MIERCOLES.setValue(series);
+                    //MONDAY
+                    routine_plan_Ref_machine.setValue(exercise_1);
+                    routine_plan_Ref_machine_2.setValue(exercise_2);
+                    routine_plan_Ref_machine_3.setValue(exercise_3);
+                    routine_plan_Ref_machine_4.setValue(exercise_4);
+                    //TUESDAY
+                    routine_plan_Ref_machine_Martes.setValue(exercise_1_martes);
+                    routine_plan_Ref_machine_2_Martes.setValue(exercise_2_martes);
+                    routine_plan_Ref_machine_3_Martes.setValue(exercise_3_martes);
+                    routine_plan_Ref_machine_4_Martes.setValue(exercise_4_martes);
 
-                //THURSDAY
-                routine_plan_Ref_musculo_JUEVES.setValue(musculo_jueves);
-                routine_plan_Ref_calentamiento_JUEVES.setValue(calentamiento);
-                routine_plan_Ref_weight_calentamiento_JUEVES.setValue(weight_calentamiento);
-                routine_plan_Ref_machine_JUEVES.setValue(exercise_1_jueves);
-                routine_plan_Ref_machine_JUEVES.setValue(exercise_2_jueves);
-                routine_plan_Ref_machine_JUEVES.setValue(exercise_3_jueves);
-                routine_plan_Ref_machine_JUEVES.setValue(exercise_4_jueves);
-                routine_plan_Ref_peso_JUEVES.setValue(weight);
-                routine_plan_Ref_repetitions_JUEVES.setValue(repeticiones);
-                routine_plan_Ref_series_JUEVES.setValue(series);
+                    //WEDNESDAY
+                    routine_plan_Ref_machine_Miercoles.setValue(exercise_1_miercoles);
+                    routine_plan_Ref_machine_2_Miercoles.setValue(exercise_2_miercoles);
+                    routine_plan_Ref_machine_3_Miercoles.setValue(exercise_3_miercoles);
+                    routine_plan_Ref_machine_4_Miercoles.setValue(exercise_4_miercoles);
 
-                //FRIDAY
-                routine_plan_Ref_musculo_VIERNES.setValue(musculo_viernes);
-                routine_plan_Ref_calentamiento_VIERNES.setValue(calentamiento);
-                routine_plan_Ref_weight_calentamiento_VIERNES.setValue(weight_calentamiento);
-                routine_plan_Ref_machine_VIERNES.setValue(exercise_1_viernes);
-                routine_plan_Ref_machine_VIERNES.setValue(exercise_2_viernes);
-                routine_plan_Ref_machine_VIERNES.setValue(exercise_3_viernes);
-                routine_plan_Ref_machine_VIERNES.setValue(exercise_4_viernes);
-                routine_plan_Ref_peso_VIERNES.setValue(weight);
-                routine_plan_Ref_repetitions_VIERNES.setValue(repeticiones);
-                routine_plan_Ref_series_VIERNES.setValue(series);
+                    //THURSDAY
+                    routine_plan_Ref_machine_Jueves.setValue(exercise_1_jueves);
+                    routine_plan_Ref_machine_2_Jueves.setValue(exercise_2_jueves);
+                    routine_plan_Ref_machine_3_Jueves.setValue(exercise_3_jueves);
+                    routine_plan_Ref_machine_4_Jueves.setValue(exercise_4_jueves);
+                    //FRIDAY
+                    routine_plan_Ref_machine_Viernes.setValue(exercise_1_viernes);
+                    routine_plan_Ref_machine_2_Viernes.setValue(exercise_2_viernes);
+                    routine_plan_Ref_machine_3_Viernes.setValue(exercise_3_viernes);
+                    routine_plan_Ref_machine_4_Viernes.setValue(exercise_4_viernes);
 
+                    routine_plan_Ref_peso.setValue(weight);
+                    routine_plan_Ref_repetitions.setValue(repeticiones);
+                    routine_plan_Ref_series.setValue(series);
+
+
+                    //TUESDAY
+
+                    routine_plan_Ref_musculo_MARTES.setValue(musculo_martes);
+                    routine_plan_Ref_calentamiento_MARTES.setValue(calentamiento);
+                    routine_plan_Ref_weight_calentamiento_MARTES.setValue(weight_calentamiento);
+                    //routine_plan_Ref_machine_MARTES.setValue(exercise_1_martes);
+                    //routine_plan_Ref_machine_MARTES.setValue(exercise_2_martes);
+                    //routine_plan_Ref_machine_MARTES.setValue(exercise_3_martes);
+                    //routine_plan_Ref_machine_MARTES.setValue(exercise_4_martes);
+                    routine_plan_Ref_peso_MARTES.setValue(weight);
+                    routine_plan_Ref_repetitions_MARTES.setValue(repeticiones);
+                    routine_plan_Ref_series_MARTES.setValue(series);
+
+                    //WEDNESDAY
+                    routine_plan_Ref_musculo_MIERCOLES.setValue(musculo_miercoles);
+                    routine_plan_Ref_calentamiento_MIERCOLES.setValue(calentamiento);
+                    routine_plan_Ref_weight_calentamiento_MIERCOLES.setValue(weight_calentamiento);
+                    //routine_plan_Ref_machine_MIERCOLES.setValue(exercise_1_miercoles);
+                    //routine_plan_Ref_machine_MIERCOLES.setValue(exercise_2_miercoles);
+                    //routine_plan_Ref_machine_MIERCOLES.setValue(exercise_3_miercoles);
+                    //routine_plan_Ref_machine_MIERCOLES.setValue(exercise_4_miercoles);
+                    routine_plan_Ref_peso_MIERCOLES.setValue(weight);
+                    routine_plan_Ref_repetitions_MIERCOLES.setValue(repeticiones);
+                    routine_plan_Ref_series_MIERCOLES.setValue(series);
+
+                    //THURSDAY
+                    routine_plan_Ref_musculo_JUEVES.setValue(musculo_jueves);
+                    routine_plan_Ref_calentamiento_JUEVES.setValue(calentamiento);
+                    routine_plan_Ref_weight_calentamiento_JUEVES.setValue(weight_calentamiento);
+                    //routine_plan_Ref_machine_JUEVES.setValue(exercise_1_jueves);
+                    //routine_plan_Ref_machine_JUEVES.setValue(exercise_2_jueves);
+                    //routine_plan_Ref_machine_JUEVES.setValue(exercise_3_jueves);
+                    //routine_plan_Ref_machine_JUEVES.setValue(exercise_4_jueves);
+                    routine_plan_Ref_peso_JUEVES.setValue(weight);
+                    routine_plan_Ref_repetitions_JUEVES.setValue(repeticiones);
+                    routine_plan_Ref_series_JUEVES.setValue(series);
+
+                    //FRIDAY
+                    routine_plan_Ref_musculo_VIERNES.setValue(musculo_viernes);
+                    routine_plan_Ref_calentamiento_VIERNES.setValue(calentamiento);
+                    routine_plan_Ref_weight_calentamiento_VIERNES.setValue(weight_calentamiento);
+                    //routine_plan_Ref_machine_VIERNES.setValue(exercise_1_viernes);
+                    //routine_plan_Ref_machine_VIERNES.setValue(exercise_2_viernes);
+                    //routine_plan_Ref_machine_VIERNES.setValue(exercise_3_viernes);
+                    //routine_plan_Ref_machine_VIERNES.setValue(exercise_4_viernes);
+                    routine_plan_Ref_peso_VIERNES.setValue(weight);
+                    routine_plan_Ref_repetitions_VIERNES.setValue(repeticiones);
+                    routine_plan_Ref_series_VIERNES.setValue(series);
 
 
                     //Root_reference.setValue(routine_name);
                     Intent intent = new Intent(getActivity(), Calendario.class);
-                    //intent.putExtra("User name",routine_name);
+                    intent.putExtra("current day", String.valueOf(user_level));
                     startActivity(intent);
-
+                }
                 }
 
 

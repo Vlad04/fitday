@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/crear_rutina_button"
         android:layout_marginTop="23dp"
-        android:onClick="Create_fragment_2"
+        android:onClick="Create_fragment"
         android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

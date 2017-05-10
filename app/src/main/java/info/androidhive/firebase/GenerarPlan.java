@@ -145,6 +145,7 @@ public class GenerarPlan extends AppCompatActivity {
 
         Log.d("current value of day",current_day);
         reference = database.getReference("Usuario Prueba 4").child("Routine ").child("Machine ").child(current_day);
+
             reference.addValueEventListener(new ValueEventListener() {
 
                 @Override

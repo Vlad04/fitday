@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements FragmentWithButton.OnFragmentInteractionListener{
 
+    int check=0;
     Button crear_rutina, ver_rutina, sing_out_button, test_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,19 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
         });
         test_button.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,ExpertSystem.class);
-                startActivity(intent);
+
+
+                if(check==1) {
+                    Intent intent = new Intent(MainActivity.this, ExpertSystem.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Please create a routine first", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -57,8 +69,9 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
 
 
     }
-    public void Create_fragment_2(View v)
+    public void Create_fragment(View v)
     {
+        check=1;
         FragmentManager manager=getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         FragmentWithButton newFragment=FragmentWithButton.newInstance("Hello","Vlad");

@@ -148,7 +148,6 @@ public class ExpertSystem extends AppCompatActivity {
                 feedback.next_week = value_week;
 
                 int next_level = feedback.inference_engine();
-                level=fragment.user_level;
                 System.out.println(feedback.b_days);
                 System.out.println(feedback.b_injure);
                 System.out.println(feedback.b_tired);
@@ -157,6 +156,8 @@ public class ExpertSystem extends AppCompatActivity {
                 //int level = mIntent.getIntExtra("intVariableName", fragment.user_level);
                 //Toast.makeText(getApplicationContext(),String.valueOf(next_level),Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(),String.valueOf(level),Toast.LENGTH_SHORT).show();
+                Log.d("current level",String.valueOf(level));
+                Log.d("next level", String.valueOf(next_level));
                 //Toast.makeText(getApplicationContext(),String.valueOf(level),Toast.LENGTH_SHORT).show();
                 if (next_level == 1){
                     //System.out.println("Congrats you go next level");
@@ -172,7 +173,9 @@ public class ExpertSystem extends AppCompatActivity {
                     if (level == 3 ) {
                         new_libs = 10;
                     }
-
+                    Intent user_intent = getIntent();
+                    //String current_level = user_intent.getExtras().getString("current day");
+                    //Log.d("current level",String.valueOf(current_level));
                     //System.out.printf("You should lift %f libs more",new_libs);
                     Toast.makeText(getApplicationContext(),"You should lift " + new_libs +" libs more",Toast.LENGTH_SHORT).show();
                 }

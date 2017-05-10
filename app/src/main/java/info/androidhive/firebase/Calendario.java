@@ -19,6 +19,7 @@ public class Calendario extends AppCompatActivity {
     CalendarView calendar;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
@@ -37,6 +38,8 @@ public class Calendario extends AppCompatActivity {
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                 //Toast.makeText(getApplicationContext(),dayOfWeek+"/",Toast.LENGTH_SHORT).show();
                 //Log.d("day of week", String.valueOf(dayOfWeek));
+
+
                 String day="";
                 if(dayOfWeek==1)
                 {
@@ -67,9 +70,18 @@ public class Calendario extends AppCompatActivity {
                     day="Saturday ";
                 }
                 Log.d("current date",day);
-                Intent intent = new Intent(Calendario.this, GenerarPlan.class);
-                intent.putExtra("current day",day);
-                startActivity(intent);
+
+                if(dayOfWeek==7 || dayOfWeek==1)
+                {
+                    Toast.makeText(getApplicationContext(),"Rest for this day",Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+
+                    Intent intent = new Intent(Calendario.this, GenerarPlan.class);
+                    intent.putExtra("current day", day);
+                    startActivity(intent);
+                }
             }
         });
         Done.setOnClickListener(new View.OnClickListener() {
@@ -80,5 +92,16 @@ public class Calendario extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
+
+
+    @Override
+    public void onBackPressed() {
+        // do nothing.
+        Toast.makeText(getApplicationContext(), "Please select one day", Toast.LENGTH_SHORT).show();
+    }
+
+
 }
