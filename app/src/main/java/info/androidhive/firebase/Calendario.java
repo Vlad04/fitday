@@ -11,10 +11,11 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 
 public class Calendario extends AppCompatActivity {
-
+    public String current_user_level;
     Button Done;
     CalendarView calendar;
 
@@ -78,9 +79,24 @@ public class Calendario extends AppCompatActivity {
                 else {
 
 
-                    Intent intent = new Intent(Calendario.this, GenerarPlan.class);
-                    intent.putExtra("current day", day);
-                    startActivity(intent);
+                        Intent intent = new Intent(Calendario.this, GenerarPlan.class);
+                        intent.putExtra("current day", day);
+                        startActivity(intent);
+
+                        try {
+                            Intent user_level_intent = getIntent();
+
+                            current_user_level = user_level_intent.getExtras().getString("current_user_level");
+                            intent.putExtra("current_user_level_from_calendar", current_user_level);
+
+                            Log.d("Hey there!, from CALENDARIO the user level is", current_user_level);
+                            startActivity(intent);
+                        }
+                        catch(Exception e)
+                    {
+                        Log.d("well","this is embarrasing");
+                    }
+
                 }
             }
         });
@@ -88,6 +104,7 @@ public class Calendario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Calendario.this, MainActivity.class);
+                intent.putExtra("current_user_level_from_calendar_2", current_user_level);
 
                 startActivity(intent);
             }

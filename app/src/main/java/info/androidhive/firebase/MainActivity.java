@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.app.FragmentManager;
@@ -11,8 +12,7 @@ import android.app.FragmentTransaction;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements FragmentWithButton.OnFragmentInteractionListener{
-
-    int check=0;
+    String current_user_level="";
     Button crear_rutina, ver_rutina, sing_out_button, test_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +44,20 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
 
             public void onClick(View view) {
 
-
-                if(check==1) {
                     Intent intent = new Intent(MainActivity.this, ExpertSystem.class);
-                    startActivity(intent);
+                    intent.putExtra("current_user_level_from_main_activity", current_user_level);
+                try {
+
+                    Intent user_level_intent = getIntent();
+                    current_user_level = user_level_intent.getExtras().getString("current_user_level_from_calendar");
+                    Log.d("Hey there, here from MAIN ACTIVITY the user level is", current_user_level);
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Please create a routine first", Toast.LENGTH_LONG).show();
+                catch (Exception e){
+                    Log.d("well","this is embarrasing");
                 }
+                startActivity(intent);
+
+
 
             }
         });
@@ -71,7 +76,6 @@ public class MainActivity extends AppCompatActivity  implements FragmentWithButt
     }
     public void Create_fragment(View v)
     {
-        check=1;
         FragmentManager manager=getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         FragmentWithButton newFragment=FragmentWithButton.newInstance("Hello","Vlad");

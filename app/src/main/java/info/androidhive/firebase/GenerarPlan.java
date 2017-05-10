@@ -20,12 +20,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class GenerarPlan extends AppCompatActivity {
 
 
-    Button generate_plan;
+    Button generate_plan, done_button;
     private String[] arraySpinner;
     Intent i;
     TextView rutina;
@@ -130,11 +131,23 @@ public class GenerarPlan extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
         */
+
         generate_plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(GenerarPlan.this,Calendario.class);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(GenerarPlan.this, ExpertSystem.class);
+                    Intent user_level_intent = getIntent();
+                    String current_user_level = user_level_intent.getExtras().getString("current_user_level_from_calendar");
+                    Log.d("Hey there, from GENERAR PLAN ACTIVITY the user level is", current_user_level);
+                    intent.putExtra("user level from GENERAR PLAN", current_user_level);
+                    startActivity(intent);
+                }
+                catch(Exception e)
+                {
+                    Intent new_intent=new Intent(GenerarPlan.this,MainActivity.class);
+                    startActivity(new_intent);
+                }
 
             }
         });
