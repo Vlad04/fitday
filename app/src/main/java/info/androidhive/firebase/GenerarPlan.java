@@ -157,7 +157,7 @@ public class GenerarPlan extends AppCompatActivity {
         String current_day = intent.getExtras().getString("current day");
 
         Log.d("current value of day",current_day);
-        reference = database.getReference("Usuario Prueba 4").child("Routine ").child("Machine ").child(current_day);
+        reference = database.getReference("Usuario Dom").child("Routine ").child("Machine ").child(current_day);
 
             reference.addValueEventListener(new ValueEventListener() {
 

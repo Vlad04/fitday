@@ -33,7 +33,7 @@ public class Calendario extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMont) {
 
-                Toast.makeText(getApplicationContext(),dayOfMont+"/"+month+"/"+year,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),dayOfMont+"/"+month+"/"+year,Toast.LENGTH_LONG).show();
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMont);
                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
