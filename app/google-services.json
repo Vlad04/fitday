@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "151284351908",
-    "firebase_url": "https://movilesfinalproj.firebaseio.com",
-    "project_id": "movilesfinalproj",
-    "storage_bucket": "movilesfinalproj.appspot.com"
+    "project_number": "703331964607",
+    "firebase_url": "https://roomateapp-da91a.firebaseio.com",
+    "project_id": "roomateapp-da91a",
+    "storage_bucket": "roomateapp-da91a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151284351908:android:d842af33038fad5c",
+        "mobilesdk_app_id": "1:703331964607:android:f9c24ffe93f1718f",
         "android_client_info": {
-          "package_name": "info.androidhive.firebase"
+          "package_name": "com.example.sandra.roomate_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "151284351908-ok1ehc8gkjsh0h33pjq6lfsih85b4ikg.apps.googleusercontent.com",
+          "client_id": "703331964607-acp17nsq9ut00nuvlm1ctduta22c1gns.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQ74CTHdzNB4yCGbHUejhNALwid9AtTWs"
+          "current_key": "AIzaSyCP9B3vAChyUqFBYbT4YnvEXQDYNljsDKE"
         }
       ],
       "services": {
@@ -39,28 +39,28 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151284351908:android:2f4228d92643983e",
+        "mobilesdk_app_id": "1:703331964607:android:9ec477db68512952",
         "android_client_info": {
-          "package_name": "mx.itesm.VladfinalProj"
+          "package_name": "itesm.com.roomate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "151284351908-a00g7n6332rub0c5ftsu8ng191o5ptbr.apps.googleusercontent.com",
+          "client_id": "703331964607-10iqefnj25t0f3n1917hh6n4pdrdpi4m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "mx.itesm.VladfinalProj",
-            "certificate_hash": "1b9e4b72db00f312326bac4f88c90e14775b2341"
+            "package_name": "itesm.com.roomate",
+            "certificate_hash": "5ae582070225802d9f31e1ac47ab04ebcfcbd480"
           }
         },
         {
-          "client_id": "151284351908-ok1ehc8gkjsh0h33pjq6lfsih85b4ikg.apps.googleusercontent.com",
+          "client_id": "703331964607-acp17nsq9ut00nuvlm1ctduta22c1gns.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQ74CTHdzNB4yCGbHUejhNALwid9AtTWs"
+          "current_key": "AIzaSyCP9B3vAChyUqFBYbT4YnvEXQDYNljsDKE"
         }
       ],
       "services": {
@@ -71,7 +71,51 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "151284351908-ok1ehc8gkjsh0h33pjq6lfsih85b4ikg.apps.googleusercontent.com",
+              "client_id": "703331964607-acp17nsq9ut00nuvlm1ctduta22c1gns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703331964607:android:2f4228d92643983e",
+        "android_client_info": {
+          "package_name": "mx.itesm.VladfinalProj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703331964607-0gd78fqnluhd7952202rm1ojr8jeq6vi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.itesm.VladfinalProj",
+            "certificate_hash": "5ae582070225802d9f31e1ac47ab04ebcfcbd480"
+          }
+        },
+        {
+          "client_id": "703331964607-acp17nsq9ut00nuvlm1ctduta22c1gns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP9B3vAChyUqFBYbT4YnvEXQDYNljsDKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703331964607-acp17nsq9ut00nuvlm1ctduta22c1gns.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
